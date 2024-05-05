@@ -6,7 +6,7 @@ import java.util.*;
 public class Menu {
     public static void run() {
         Scanner scanner = new Scanner(System.in);
-        Set<String> dictionary = readDictionaryFromFile("word.txt");
+        Set<String> dictionary = readDictionaryFromFile("src/word.txt");
 
         while (true) {
             ListMenu();
