@@ -46,7 +46,7 @@ Program menggunakan Command Line Interface(CLI):
 ```shell
 git clone https://github.com/cupski/Tucil3_13522009.git
 ```
-pindahkan direktori folder yang berisi kode python
+pindahkan direktori folder yang berisi kode program
 ```shell
 cd Tucil3_13522009
 ```
