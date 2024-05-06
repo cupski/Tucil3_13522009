@@ -3,6 +3,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class Menu {
     public static void run() {
         Scanner scanner = new Scanner(System.in);
@@ -23,6 +25,12 @@ public class Menu {
 
             String startWord = getStartWord(scanner);
             String endWord = getEndWord(scanner);
+
+            while (startWord.isEmpty() || endWord.isEmpty()) {
+                System.out.println("Start word or end word cannot be empty.");
+                startWord = getStartWord(scanner);
+                endWord = getEndWord(scanner);
+            }
 
             while(startWord.length() != endWord.length()) {
                 System.out.println("Make Sure both words have the same length :(");

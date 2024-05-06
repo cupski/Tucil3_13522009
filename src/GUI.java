@@ -80,7 +80,7 @@ public class GUI {
 
         // Validate input
         if (startWord.isEmpty() || endWord.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Start word and end word cannot be empty.");
+            JOptionPane.showMessageDialog(null, "Start word or end word cannot be empty.");
             return;
         }
         else if (!dictionary.contains(startWord) || !dictionary.contains(endWord)) {
