@@ -22,7 +22,6 @@ pada rantai kata dengan pendekatan algoritma UCS, Greedy Best First Search, dan 
 ## General Information
 - Projek ini mencari solusi teroptimal yang dapat ditempuh dalam suatu rute yang dapat memberikan rantai kata terdikit.
 - Algoritma A* memberikan solusi teroptimal secara efisien, di sisi lain UCS memberikan solusi teroptimal tapi tidak efisien. Sementara, GBFS memiliki waktu eksekusi paling cepat, namun tidak memberikan solusi optimal.
-- Dengan pendekatan Brute Force, program ini mencari semua kemungkinan rute dengan panjang terdiri atas 2 token hingga batas buffer, lalu memilih satu rute teroptimal.
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 
@@ -51,7 +50,7 @@ pindahkan direktori folder yang berisi kode python
 ```shell
 cd Tucil3_13522009
 ```
-Compile Program
+Compile Program(Optional)
 ```shell
 javac -d bin src/*.java
 ```
