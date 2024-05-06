@@ -54,18 +54,28 @@ public class Menu {
                     continue;
             }
 
-            System.out.println("Searching :) (Please Wait!!)");
-            List<Node> path = algorithm.searchRoute(startNode, endNode, dictionary, queue);
-
+            System.out.println("\nSearching :) (Please Wait!!)");
+            Object[] route = algorithm.searchRoute(startNode, endNode, dictionary, queue);
+            
+            @SuppressWarnings("unchecked")
+            List<Node> path = (List<Node>) route[0];
+            int depth = (int) route[1];
+            long duration = (long) route[2];
+            
             // Menampilkan jalur transformasi
+            System.out.println("\n===== " + (path != null ? "Path Found!!!": "Path Not Found :(") + " ====="); 
             if (path != null) {
-                System.out.println("Transformation path:");
-                for (Node node : path) {
-                    System.out.println(node.word);
+                System.out.print("Route: ");
+                for (int i = 0; i < path.size(); i++) {
+                    System.out.print(path.get(i).word);
+                    if (i < path.size() - 1) {
+                        System.out.print(" -> ");
+                    }
                 }
-            } else {
-                System.out.println("Transformation is not possible.");
             }
+            System.out.println("\nNode Visited: " + depth);
+            System.out.println("Execution time: " + duration + " milliseconds");
+            
 
             if(Continue(scanner) != 1){
                 break;
@@ -100,16 +110,16 @@ public class Menu {
 
     private static String getStartWord(Scanner scanner) {
         System.out.print("Enter the start word: ");
-        return scanner.nextLine().trim();
+        return scanner.nextLine().trim().toLowerCase();
     }
 
     private static String getEndWord(Scanner scanner) {
         System.out.print("Enter the end word: ");
-        return scanner.nextLine().trim();
+        return scanner.nextLine().trim().toLowerCase();
     }
 
     private static Integer Continue(Scanner scanner){
-        System.out.println("\n----------Pencarian Selesai!!!----------");
+        System.out.println("\n====Pencarian Selesai!!!====");
         System.out.println("1.Kembali ke Menu");
         System.out.println("2.Keluar");
 

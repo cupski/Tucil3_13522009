@@ -1,9 +1,11 @@
 import java.util.*;
 
 public abstract class Algorithm {
+    
     // Memeriksa apakah dua kata berbeda satu karakter
     static boolean isOneCharDiff(String word1, String word2) {
         if (word1.length() != word2.length()) return false;
+
         int diffCount = 0;
         for (int i = 0; i < word1.length(); i++) {
             if (word1.charAt(i) != word2.charAt(i)) {
@@ -11,16 +13,20 @@ public abstract class Algorithm {
                 if (diffCount > 1) return false;
             }
         }
-        return diffCount == 1;
+        return true;
     }
 
     
 
-    List<Node> searchRoute(Node startNode, Node endNode, Set<String> dictionary, PriorityQueue<Node> queue) {
+    Object[] searchRoute(Node startNode, Node endNode, Set<String> dictionary, PriorityQueue<Node> queue) {
         Set<String> visited = new HashSet<>();
         startNode.cost = 0;
+        int count = 0;
+        long startTime = System.currentTimeMillis();
+
 
         while (!queue.isEmpty()) {
+            count++;
             Node current = queue.poll();
             visited.add(current.word);
 
@@ -31,13 +37,17 @@ public abstract class Algorithm {
                     current = current.parent;
                 }
                 Collections.reverse(path);
-                return path;
+                long endTime = System.currentTimeMillis();
+                long duration = endTime - startTime;
+                return new Object[]{path, count, duration};
             }
 
             generateAdjacentWords(current, endNode, dictionary, visited, queue);
         }
 
-        return null;
+        long endTime = System.currentTimeMillis();
+        long duration = endTime - startTime;
+        return new Object[]{null, count, duration};
     }
 
     void generateAdjacentWords(Node current, Node target, Set<String> dictionary, Set<String> visited, PriorityQueue<Node> queue) {
