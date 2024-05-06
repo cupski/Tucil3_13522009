@@ -8,10 +8,14 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         Set<String> dictionary = readDictionaryFromFile("src/word.txt");
 
-        while (true) {
-            ListMenu();
-            int choice = getChoice(scanner);
+        if(getInput(scanner) == 2){
+            GUI gui = new GUI();
+            gui.run();
+            return;
+        }
 
+        while (true) {
+            int choice = getMenuChoice(scanner);
             if (choice == 4) {
                 System.out.println("Exiting...");
                 break;
@@ -85,16 +89,33 @@ public class Menu {
         scanner.close();
     }
 
-    private static void ListMenu() {
-        System.out.println("===== Word Ladder Menu =====");
+    private static Integer getInput(Scanner scanner) {
+        System.out.println("===== Pilih Metode Input =====");
+        System.out.println("1. CLI((Command Line Interface))");
+        System.out.println("2. GUI (Graphical User Interface)");
+        System.out.println("============================");
+
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); 
+
+        while(choice < 1 || choice > 4){
+            System.out.println("Put the Right Input :)");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine(); 
+        }
+        return choice;
+    }
+
+    private static int getMenuChoice(Scanner scanner) {
+        System.out.println("\n===== Word Ladder Menu =====");
         System.out.println("1. Uniform Cost Search (UCS)");
         System.out.println("2. Greedy Best First Search (GBFS)");
         System.out.println("3. A* Search (AStar)");
         System.out.println("4. Exit");
         System.out.println("============================");
-    }
 
-    private static int getChoice(Scanner scanner) {
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         scanner.nextLine(); 

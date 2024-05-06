@@ -1,7 +1,7 @@
 import java.util.*;
 
 public abstract class Algorithm {
-    
+
     // Memeriksa apakah dua kata berbeda satu karakter
     static boolean isOneCharDiff(String word1, String word2) {
         if (word1.length() != word2.length()) return false;
@@ -50,18 +50,57 @@ public abstract class Algorithm {
         return new Object[]{null, count, duration};
     }
 
+    // void generateAdjacentWords(Node current, Node target, Set<String> dictionary, Set<String> visited, PriorityQueue<Node> queue) {
+    //     for(String word: dictionary){
+    //         if (!visited.contains(word) && isOneCharDiff(current.word, word)) {
+    //             Node adjacent = new Node(word);
+    //             int newCost = calculateCost(word, current, target);
+    //             adjacent.cost = newCost;
+    //             adjacent.parent = current;
+    //             queue.add(adjacent);
+    //         }
+    //     }
+    // }
     void generateAdjacentWords(Node current, Node target, Set<String> dictionary, Set<String> visited, PriorityQueue<Node> queue) {
-        for(String word: dictionary){
-            if (!visited.contains(word) && isOneCharDiff(current.word, word)) {
-                Node adjacent = new Node(word);
-                int newCost = calculateCost(word, current, target);
-                if (newCost < adjacent.cost) {
+        int wordLength = current.word.length();
+        
+
+        for (int pos = 0; pos < wordLength; ++pos) {
+            char origChar = current.word.charAt(pos);
+
+            // Replace the current character with every possible lowercase alphabet character
+            for (char c = 'a'; c <= 'z'; ++c) {
+                if (c == origChar) continue; // Skip if it's the same character
+                
+                StringBuilder newWordBuilder = new StringBuilder(current.word);
+                newWordBuilder.setCharAt(pos, c);
+                String newWord = newWordBuilder.toString();
+
+                // If the new word is in the dictionary and has not been visited
+                if (dictionary.contains(newWord) && !visited.contains(newWord)) {
+                    Node adjacent = new Node(newWord);
+                    int newCost = calculateCost(newWord, current, target);
                     adjacent.cost = newCost;
                     adjacent.parent = current;
                     queue.add(adjacent);
+                    visited.add(newWord);
                 }
             }
+
+            // Restore the original character at the current position
+            current.word = current.word.substring(0, pos) + origChar + current.word.substring(pos + 1);
         }
+    }
+
+
+    static Integer OneCharDiff(String word1, String word2) {
+        int diffCount = 0;
+        for (int i = 0; i < word1.length(); i++) {
+            if (word1.charAt(i) != word2.charAt(i)) {
+                diffCount++;
+            }
+        }
+        return diffCount;
     }
 
     abstract int calculateCost(String word, Node current, Node target);
