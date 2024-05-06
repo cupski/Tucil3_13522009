@@ -9,7 +9,7 @@ public class Node {
         public Node(String word) {
             this.word = word;
             this.neighbors = new ArrayList<>();
-            this.cost = Integer.MAX_VALUE; // Set biaya awal ke nilai maksimum
+            this.cost = 0;
             this.parent = null;
         }
 }

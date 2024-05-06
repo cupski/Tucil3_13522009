@@ -15,10 +15,8 @@ public abstract class Algorithm {
     }
 
     
-
     Object[] searchRoute(Node startNode, Node endNode, Set<String> dictionary, PriorityQueue<Node> queue) {
         Set<String> visited = new HashSet<>();
-        startNode.cost = 0;
         int count = 0;
         long startTime = System.currentTimeMillis();
 
@@ -48,17 +46,6 @@ public abstract class Algorithm {
         return new Object[]{null, count, duration};
     }
 
-    // void generateAdjacentWords(Node current, Node target, Set<String> dictionary, Set<String> visited, PriorityQueue<Node> queue) {
-    //     for(String word: dictionary){
-    //         if (!visited.contains(word) && isOneCharDiff(current.word, word)) {
-    //             Node adjacent = new Node(word);
-    //             int newCost = calculateCost(word, current, target);
-    //             adjacent.cost = newCost;
-    //             adjacent.parent = current;
-    //             queue.add(adjacent);
-    //         }
-    //     }
-    // }
     void generateAdjacentWords(Node current, Node target, Set<String> dictionary, Set<String> visited, PriorityQueue<Node> queue) {
         int wordLength = current.word.length();
         
@@ -66,15 +53,15 @@ public abstract class Algorithm {
         for (int pos = 0; pos < wordLength; ++pos) {
             char origChar = current.word.charAt(pos);
 
-            // Replace the current character with every possible lowercase alphabet character
+            // Tukar current karakter dengan semua kemungkinan huruf alfabet
             for (char c = 'a'; c <= 'z'; ++c) {
-                if (c == origChar) continue; // Skip if it's the same character
+                if (c == origChar) continue; // skip jika karakternya sama
                 
                 StringBuilder newWordBuilder = new StringBuilder(current.word);
                 newWordBuilder.setCharAt(pos, c);
                 String newWord = newWordBuilder.toString();
 
-                // If the new word is in the dictionary and has not been visited
+                // pastikan kata baru ada di dictionary dan belum dikunjungi
                 if (dictionary.contains(newWord) && !visited.contains(newWord)) {
                     Node adjacent = new Node(newWord);
                     int newCost = calculateCost(newWord, current, target);
@@ -85,11 +72,10 @@ public abstract class Algorithm {
                 }
             }
 
-            // Restore the original character at the current position
+            //Kembalikan Kata Sebelumnya
             current.word = current.word.substring(0, pos) + origChar + current.word.substring(pos + 1);
         }
     }
-
 
     static Integer OneCharDiff(String word1, String word2) {
         int diffCount = 0;
